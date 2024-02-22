@@ -1,0 +1,327 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Roboto", sans-serif;
+}
+
+
+body{
+    background: #FAFAFA;
+}
+
+.container{
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0px 10px;
+}
+
+.navbar{
+    background: #FFF;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 9999;
+    padding: 24px 0;
+    box-shadow: 0px 2px 9px 0px rgba(0, 0, 0, 0.05);
+}
+
+.navbar-wrap{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    h1{
+        font-size: 24px;
+        font-weight: 800;
+    }
+
+    button{
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 16px;
+        font-weight: 600;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+    }
+
+}
+
+
+.intro--wrapper{
+    margin-top: 80px;
+    padding: 40px 0px;
+
+
+
+    .intro--top{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 48px;
+        
+
+        .input-wrap{
+            width: 480px;
+            height: 56px;
+            border-radius: 5px;
+            background: #FFF;
+            box-shadow: 0px 2px 9px 0px rgba(0, 0, 0, 0.05);
+            position: relative;
+
+            input{
+                background: transparent;
+                width: 100%;
+                height: 100%;
+                border: none;
+                padding: 18px 18px 18px 74px;
+                font-size: 18px;;
+                font-weight: 400;
+                line-height: 20px;
+            }
+
+            i{
+                position: absolute;
+                top: 18px;
+                left: 34px;
+                color: rgba(132, 132, 132, 1);
+            }
+        }
+
+        select{
+            width: 200px;
+            height: 56px;
+            flex-shrink: 0;
+            border-radius: 5px;
+            background: #FFF;
+            box-shadow: 0px 2px 9px 0px rgba(0, 0, 0, 0.05);
+            color: #111517;
+            font-size: 18px;
+            font-weight: 400;
+            line-height: 20px;
+            padding: 0px 18px 0px 24px;
+            border: none;
+        }
+    }
+}
+
+.intro--card-wrapper{
+    display: grid;
+    grid-template-columns: repeat(4 , auto);
+    row-gap: 62px;
+    column-gap: 65px;
+}
+
+.card{
+    width: 264px;
+    flex-shrink: 0;
+    /* border-radius: 5px; */
+    /* background: #FFF; */
+    box-shadow: 0px 0px 7px 4px rgba(0, 0, 0, 0.03);
+    cursor: pointer;
+
+    &:hover{
+       transition: all 0.2s linear;
+       box-shadow: 0px 0px 10px 7px rgba(0, 0, 0, 0.03);
+
+    }
+}
+
+.card-img{
+    margin: 0;
+     padding: 0;
+    img{
+        width: 264px;
+        height: 160px; 
+        object-fit: cover;
+        border-radius: 5px 5px 0px 0px;
+        margin: 0;
+        padding: 0;
+
+    };
+}
+
+
+.card-titil{
+    padding: 24px 0px 10px 24px;
+    height: 180px;
+    border-radius: 0px 0px 5px 5px;
+    margin: 0;
+
+    h2{
+        font-size: 18px;
+        font-weight: 800;
+        line-height: 26px;
+        margin-bottom: 16px;
+    }
+
+    ul{
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+
+        li{
+            
+
+            strong{
+                margin-right: 5px;
+            }
+        }
+    }
+}
+
+.tatiil--not-data{
+    text-align: center;
+    margin-top: 30px;
+    font-size: 38px;
+    color: #ff0000;
+}
+
+
+.darcmod-card{
+    background: #2B3844;
+    color: #FFF ;
+    box-shadow: 0px 0px 7px 2px rgba(0, 0, 0, 0.03);
+}
+
+
+
+
+
+
+
+
+
+/*-------------- RESPONSIV STYLE --------------- */
+@media screen and  (max-width: 770px){
+
+   
+    .intro--card-wrapper{
+        display: grid;
+        grid-template-columns: repeat(2,auto);
+        row-gap: 52px;
+        column-gap: 200px;
+    }
+        
+    
+}
+@media screen and  (max-width: 577px){
+
+    .intro--wrapper{
+        margin-top: 80px;
+        padding: 16px 0px;
+    }    
+    .intro--top{
+        display: flex;
+        flex-direction: column;
+        align-items: start  !important;
+        justify-content: start;
+        gap: 32px;
+        margin-bottom: 48px;
+        
+
+        .input-wrap{
+            width: 348px !important;
+            height: 56px;
+            border-radius: 5px;
+            background: #FFF;
+            box-shadow: 0px 2px 9px 0px rgba(0, 0, 0, 0.05);
+            position: relative;
+
+            input{
+                background: transparent;
+                width: 100%;
+                height: 100%;
+                border: none;
+                padding: 18px 18px 18px 74px;
+                font-size: 18px;;
+                font-weight: 400;
+                line-height: 20px;
+            }
+
+            i{
+                position: absolute;
+                top: 18px;
+                left: 34px;
+                color: rgba(132, 132, 132, 1);
+            }
+        }
+
+        select{
+            width: 200px;
+            height: 56px;
+            flex-shrink: 0;
+            border-radius: 5px;
+            background: #FFF;
+            box-shadow: 0px 2px 9px 0px rgba(0, 0, 0, 0.05);
+            color: #111517;
+            font-size: 18px;
+            font-weight: 400;
+            line-height: 20px;
+            padding: 0px 18px 0px 24px;
+            border: none;
+        }
+    } 
+
+    .intro--card-wrapper{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        column-gap: 32px;
+    }
+}
+@media screen and  (max-width: 376px){
+
+    .navbar-wrap{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    
+        h1{
+            font-size: 14px;
+            font-weight: 800;
+        }
+    
+        button{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+        }
+    
+    }
+
+    .intro--top{
+        display: flex;
+        flex-direction: column;
+        align-items: start  !important;
+        justify-content: start;
+        gap: 32px;
+        margin-bottom: 48px;
+        
+
+        .input-wrap{
+            width: 300px !important;
+            height: 56px;
+            border-radius: 5px;
+            background: #FFF;
+            box-shadow: 0px 2px 9px 0px rgba(0, 0, 0, 0.05);
+            position: relative;
+
+        }
+
+        
+    }     
+}
