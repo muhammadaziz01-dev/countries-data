@@ -5,14 +5,13 @@ let search = document.querySelector("#search");
 let regions =[];
 
 let select = document.querySelector("#select");
-
+let countrisWrapper = document.querySelector('.countri--card-wrapper');
 
 let darcModbtn = document.querySelector('#darcmod-btn');
 let darcmodAll = document.querySelectorAll('.darcmod');
 let input = document.querySelector('input');
 
 let URL =  "https://restcountries.com/v2";
-
 
 //-------------------------------DATA BAZA ----
 
@@ -66,7 +65,6 @@ async function regionCountrise(reqURL) {
        const response = await fetch(`${reqURL}/all`);
        if(response.status===200){
          const result = await response.json();
-         console.log(result);
          result.forEach((el)=>{
             if(!regions.includes(el.region)){
                 regions.push(el.region)
@@ -124,7 +122,7 @@ select.addEventListener('change' ,(e)=>{
 function randerState(data) {
     cardWrapper.innerHTML=""
     if (data.length) {
-        data.forEach((el)=>{
+        data.forEach((el ,id)=>{
             let card = document.createElement("div")
             card.classList.add("card");
             // card.setAttribute("data-id" , `${el.numericCode}`);
@@ -133,12 +131,13 @@ function randerState(data) {
                <img src="${el.flag}" alt="${el.name}">
             </div>
             <div class="card-titil card">
-               <h2>${el.name}</h2>
+               <h2>${el.name.length > 28 ? el.name.slice(0,25)+'...': el.name}</h2>
                <ul>
                   <li><strong>Population:</strong>${el.population}</li>
                   <li><strong>Region:</strong>${el.region}</li>
                   <li><strong>Capital:</strong>${el.capital}</li>
                </ul>
+               <a href="./countri.html" class="link" data-id=${id}>to see</a>
             </div>
             `
         
@@ -149,7 +148,7 @@ function randerState(data) {
     }
 }
 //-----------------------------------RENDER DATA CARDS START---------
-
+//./countri.html
 
 
 
@@ -188,6 +187,69 @@ darcModbtn.onclick = function () {
 
 //----------------------------------------TEST-----
 
+
+
+cardWrapper.addEventListener('click' , (e)=>{
+    if(e.target.classList.contains('link')){
+        let clinCod = e.target.getAttribute('data-id');
+        localStorage.setItem("countri" , JSON.stringify(clinCod))
+    }
+})
+
+
+
+// let countri = JSON.parse(localStorage.getItem("countri"))
+// countri = countri * 1;
+
+// async function newCountri(url) {
+//     try{
+//         const response = await fetch(`${url}/all`);
+//         const result = await response.json()
+//         const filtercountri = await result.filter((el ,id)=> id== countri);
+//         renderCardCountris(filtercountri)
+//     }catch (error){
+//        cardWrapper.innerHTML= `<h1 class = "error-messege">${error.message} </h1>`;
+//     }
+// }
+// newCountri(URL)
+
+
+// function renderCardCountris(data) {
+//     data.forEach((el)=>{
+//         let card = document.createElement('div');
+//         card.classList.add('countri--card');
+//         card.innerHTML=`
+//         <div class="countri--card--img">
+//             <img src="${el.flag}"
+//                 alt="${el.name}">
+//         </div>
+//         <div class="countri-card--titil">
+//             <h2>${el.name}</h2>
+//             <div class="countri-card--titil--list">
+//                 <ul>
+//                     <li><strong>Native Name:</strong>${el.demonym}</li>
+//                     <li><strong>Population:</strong>${el.population}</li>
+//                     <li><strong>Region:</strong>${el.region}</li>
+//                     <li><strong>Sub Region:</strong>${el.subregion}</li>
+//                     <li><strong>Capital:</strong>${el.capital}</li>
+//                 </ul>
+//                 <ul>
+//                     <li><strong>Top Level Domain:</strong>${el.topLevelDomain}</li>
+//                     <li><strong>Currencies:</strong>${el.currencies[0].symbol}</li>
+//                     <li><strong>Languages:</strong>monopol</li>
+//                 </ul>
+//             </div>
+//             <div class="countri-card--titil--botton">
+//                 <strong>Border Countries: </strong>
+//                 <p class="countri-card--titil--botton--pi">
+//                       <span>France</span><span>Germany</span><span>Netherlands</span>
+//                 </p>
+//             </div>
+//         </div>
+//         `
+//         countrisWrapper.appendChild(card);
+//     })
+// }
 
 
 
