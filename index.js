@@ -1,84 +1,118 @@
+"use strict"
 let cardWrapper = document.querySelector(".intro--card-wrapper");
 let search = document.querySelector("#search");
 
-let arr =[];
+let regions =[];
 
 let select = document.querySelector("#select");
 
 
 let darcModbtn = document.querySelector('#darcmod-btn');
 let darcmodAll = document.querySelectorAll('.darcmod');
-// let card = document.querySelectorAll('.card');
 let input = document.querySelector('input');
 
+let URL =  "https://restcountries.com/v2";
 
-let state = JSON.parse(localStorage.getItem("movies")) || [];
 
-//-------------------------------DATA BAZA----
+//-------------------------------DATA BAZA ----
 
-(function getData(){
-    fetch("https://restcountries.com/v2/all").then((res)=>res.json()).then((data)=>{
-        randerState(data)
+async function getPost(reqURL) {
+    cardWrapper.innerHTML= `<span class="loader"></span>`;
+    try{
+       const response = await fetch(`${reqURL}/all`);
+       if(response.status===200){
+         const result = await response.json();
+         cardWrapper.innerHTML= ``;
+         randerState(result)
+       }
+    }catch (error){
+       cardWrapper.innerHTML= `<h1 class = "error-messege">${error.message} </h1>`;
+    }
+}
+getPost(URL)
 
-        //-------seorch input---
 
-        search.addEventListener("input",(e)=>{
-            let searchData = e.target.value 
-            console.log(searchData);
-            let searchStste = data.filter((el)=> el.name.toLowerCase().includes(searchData.toLowerCase()) );
-            if(searchStste.length){
-                randerState(searchStste);
-            }else{
-                cardWrapper.innerHTML=`<h1 class="tatiil--not-data">No such state found</h1>`
+
+
+
+//----------SEARCH COUNTRIES START------
+
+async function searchCountries(searchText) {
+    cardWrapper.innerHTML= `<span class="loader"></span>`;
+    try{
+        const response = await fetch(`${URL}/name/${searchText}`);
+        const result = await response.json()
+        randerState(result)
+    }catch (error){
+       cardWrapper.innerHTML= `<h1 class = "error-messege">${error.message} </h1>`;
+    }
+}
+
+
+search.addEventListener('keyup',(e)=>{
+    if(e.keyCode == 13 && e.target.value.trim().length){
+        const searchText = e.target.value.trim() ;
+        searchCountries(searchText);
+    }
+})
+//----------SEARCH COUNTRIES END------
+
+
+
+//----------------REGION COUNTRISE START----------
+async function regionCountrise(reqURL) {
+    cardWrapper.innerHTML= `<span class="loader"></span>`;
+    try{
+       const response = await fetch(`${reqURL}/all`);
+       if(response.status===200){
+         const result = await response.json();
+         console.log(result);
+         result.forEach((el)=>{
+            if(!regions.includes(el.region)){
+                regions.push(el.region)
+                  
             }
-
         })
-
-
-      //-----------------Render States region-----------------
-        data.filter((el)=>{
-                if(!arr.includes(el.region)){
-                    arr.push(el.region)
-                }
+        regions.forEach((el)=>{
+          let option = document.createElement("option");
+          option.value = `${el}`
+          option.innerHTML= el
+          select.appendChild(option);
         })
-            
-        arr.forEach((el)=>{
-                let option = document.createElement("option");
-                option.value = `${el}`
-                option.innerHTML= el
-                select.appendChild(option);
-        })
-            
-        select.addEventListener("change" , (el)=>{
-                let selectedRegion = el.target.value;
-                let randerRegion = data.filter((el)=> el.region == selectedRegion);
-                randerState(randerRegion);
-        })
+         
+       }
+    }catch (error){
+       cardWrapper.innerHTML= `<h1 class = "error-messege">${error.message} </h1>`;
+    }
+}
+regionCountrise(URL)
+//----------------REGION COUNTRISE END----------
+ 
 
-       //------------------------test-------
-        
-    //    cardWrapper.addEventListener("click" ,(e)=>{
-           
-    //     if(e.target.classList.contains('card')){
-    //         console.log("hiiiii");
-          
-    //            let id = e.target.getAttribute('data-id');
-    //            console.log(id);
-    //            let chengState= data.filter((el)=>el.numericCode === id)[0];
-    //            console.log(chengState);
-    //            if(!state.includes(chengState.id)){
-    //               state.push(titilFilm.id);
-    //               localStorage.setItem("state" , JSON.stringify(state))
-    //            }else{
-    //             alert("Avval qo'shilgan")
-    //            }
 
-    //     } 
 
-    //    });
-        
-    });
-})();
+// ---------SELECT RECGION START-----------
+async function filterCountrise(regionText) {
+    cardWrapper.innerHTML= `<span class="loader"></span>`;
+    try{
+       const response = await fetch(`${URL}/all`);
+       const result = await response.json();
+       const regionCountris = await result.filter((el)=> el.region == regionText);
+       randerState(regionCountris);
+    }catch (error){
+       cardWrapper.innerHTML= `<h1 class = "error-messege">${error.message} </h1>`;
+    }
+}
+
+select.addEventListener('change' ,(e)=>{
+    let changeRegion = e.target.value;
+    filterCountrise(changeRegion);
+})
+
+// ---------SELECT RECGION END-----------
+
+
+
 
 
 
@@ -87,26 +121,30 @@ let state = JSON.parse(localStorage.getItem("movies")) || [];
 //-----------------------------------RENDER DATA CARDS---------
 function randerState(data) {
     cardWrapper.innerHTML=""
-    data.forEach((el)=>{
-        let card = document.createElement("div")
-        card.classList.add("card");
-        card.setAttribute("data-id" , `${el.numericCode}`);
-        card.innerHTML=`
-        <div class="card-img">
-           <img src="${el.flag}" alt="${el.name}">
-        </div>
-        <div class="card-titil card">
-           <h2>${el.name}</h2>
-           <ul>
-              <li><strong>Population:</strong>${el.population}</li>
-              <li><strong>Region:</strong>${el.region}</li>
-              <li><strong>Capital:</strong>${el.capital}</li>
-           </ul>
-        </div>
-        `
-    
-        cardWrapper.appendChild(card)
-    })
+    if (data.length) {
+        data.forEach((el)=>{
+            let card = document.createElement("div")
+            card.classList.add("card");
+            // card.setAttribute("data-id" , `${el.numericCode}`);
+            card.innerHTML=`
+            <div class="card-img">
+               <img src="${el.flag}" alt="${el.name}">
+            </div>
+            <div class="card-titil card">
+               <h2>${el.name}</h2>
+               <ul>
+                  <li><strong>Population:</strong>${el.population}</li>
+                  <li><strong>Region:</strong>${el.region}</li>
+                  <li><strong>Capital:</strong>${el.capital}</li>
+               </ul>
+            </div>
+            `
+        
+            cardWrapper.appendChild(card)
+        })
+    }else{
+       cardWrapper.innerHTML= `<h1 class = "error-messege"> NOT FOUND </h1>`;
+    }
 }
 
 //------DARC MODE--------\
@@ -144,24 +182,3 @@ darcModbtn.onclick = function () {
 
 
 
-
-// let tanlanganFillimlar = JSON.parse(localStorage.getItem("movies")) || [];
-
-// moviesWrapper.addEventListener("click", (e)=>{
-    
-//    if(e.target.classList.contains('liked')){
-      
-//      let id = e.target.getAttribute('data-like');
-//      let titilFilm = allMovies.filter((el)=>el.id === id)[0];
-//      if(!tanlanganFillimlar.includes(titilFilm.id)){
-//         tanlanganFillimlar.push(titilFilm.id);
-//         toast('success', `${titilFilm.title.slice(0,21)+'...'} film added`, 1500 );
-//         localStorage.setItem("movies" , JSON.stringify(tanlanganFillimlar))
-      
-//      }else{
-//         toast('arrov', `${titilFilm.title.slice(0,21)+'...'} film  delet`, 1500 )
-        
-//      }
-     
-//    }
-// })
