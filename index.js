@@ -91,6 +91,9 @@ regionCountrise(URL)
 
 
 
+
+
+
 // ---------SELECT RECGION START-----------
 async function filterCountrise(regionText) {
     cardWrapper.innerHTML= `<span class="loader"></span>`;
@@ -108,7 +111,6 @@ select.addEventListener('change' ,(e)=>{
     let changeRegion = e.target.value;
     filterCountrise(changeRegion);
 })
-
 // ---------SELECT RECGION END-----------
 
 
@@ -118,7 +120,7 @@ select.addEventListener('change' ,(e)=>{
 
 
 
-//-----------------------------------RENDER DATA CARDS---------
+//-----------------------------------RENDER DATA CARDS START---------
 function randerState(data) {
     cardWrapper.innerHTML=""
     if (data.length) {
@@ -146,9 +148,14 @@ function randerState(data) {
        cardWrapper.innerHTML= `<h1 class = "error-messege"> NOT FOUND </h1>`;
     }
 }
+//-----------------------------------RENDER DATA CARDS START---------
 
-//------DARC MODE--------\
 
+
+
+
+
+//------DARC MODE START--------\
 let isDarkMode = false;
 darcModbtn.onclick = function () {
     if (isDarkMode==false){
@@ -159,7 +166,6 @@ darcModbtn.onclick = function () {
         document.body.style.color = "#FFF";
         darcmodAll.forEach((el)=> el.style.backgroundColor = "#2B3844")
         darcmodAll.forEach((el)=> el.style.color = "#FFF")
-        // card.forEach((el)=> el.classList.toggle("darcmod-card"));
         input.style.color = "#FFF"
 
     }else{
@@ -170,13 +176,17 @@ darcModbtn.onclick = function () {
         document.body.style.color = "#111517";
         darcmodAll.forEach((el)=> el.style.backgroundColor = "#FFF")
         darcmodAll.forEach((el)=> el.style.color = "#111517")
-        // card.forEach((el)=> el.classList.toggle("darcmod-card"));
         input.style.color = "#111517"
         
     }
     isDarkMode = !isDarkMode;
 }
-//----------------------------------------TEST
+//------DARC MODE END--------\
+
+
+
+
+//----------------------------------------TEST-----
 
 
 
