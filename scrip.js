@@ -13,7 +13,11 @@ let input = document.querySelector('input');
 
 let link2 = document.querySelector('.link2');
 
+let iconTitil = document.querySelector('#icon-titl');
+let titlDocument = document.querySelector('title')
+
 let URL =  "https://restcountries.com/v2";
+
 
 
 
@@ -49,8 +53,14 @@ darcModbtn.onclick = function () {
 //------DARC MODE END--------\
 
 
+
+
+
+
 let countri = JSON.parse(localStorage.getItem("countri"))
-countri = countri * 1;
+
+
+
 
 
 //-----filter chenge contrise------
@@ -58,7 +68,7 @@ async function newCountri(url) {
     try{
         const response = await fetch(`${url}/all`);
         const result = await response.json()
-        const filtercountri = await result.filter((el ,id)=> id== countri);
+        const filtercountri = await result.filter((el )=> el.name == countri);
         renderCardCountris(filtercountri)
     }catch (error){
        cardWrapper.innerHTML= `<h1 class = "error-messege">${error.message} </h1>`;
@@ -68,10 +78,16 @@ newCountri(URL)
 
 
 
+
+
+
 //eander countris-------------
 function renderCardCountris(data) {
     countrisWrapper.innerHTML=''
     data.forEach((el)=>{
+        titlDocument.textContent=`${el.name}`;
+        iconTitil.setAttribute('href' , `${el.flag}`);
+
         let card = document.createElement('div');
         card.classList.add('countri--card');
         card.innerHTML=`

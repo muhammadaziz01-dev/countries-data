@@ -122,7 +122,7 @@ select.addEventListener('change' ,(e)=>{
 function randerState(data) {
     cardWrapper.innerHTML=""
     if (data.length) {
-        data.forEach((el ,id)=>{
+        data.forEach((el )=>{
             let card = document.createElement("div")
             card.classList.add("card");
             // card.setAttribute("data-id" , `${el.numericCode}`);
@@ -137,7 +137,7 @@ function randerState(data) {
                   <li><strong>Region:</strong>${el.region}</li>
                   <li><strong>Capital:</strong>${el.capital}</li>
                </ul>
-               <a href="./countri.html" class="link" data-id=${id}>to see</a>
+               <a href="./countri.html" class="link" data-id=${el.name}>to see</a>
             </div>
             `
         
