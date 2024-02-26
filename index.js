@@ -137,7 +137,7 @@ function randerState(data) {
                   <li><strong>Region:</strong>${el.region}</li>
                   <li><strong>Capital:</strong>${el.capital}</li>
                </ul>
-               <a href="./countri.html" class="link" data-id=${el.name}>to see</a>
+               <a href="./countri.html" class="link" data-id='${el.name}'>to see</a>
             </div>
             `
         

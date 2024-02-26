@@ -59,7 +59,9 @@ darcModbtn.onclick = function () {
 
 let countri = JSON.parse(localStorage.getItem("countri"))
 
+// countri *= 1;
 
+// console.log(countri);
 
 
 
